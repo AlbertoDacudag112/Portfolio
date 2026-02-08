@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Biography - MyWebsite</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #0f172a, #1e293b);
+                color: #e5e7eb;
+                padding-top: 70px;
+                min-height: 100vh;
+            }
+
+            /* Navbar */
+            .navbar {
+                background-color: #111 !important;
+                padding: 15px 0;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            }
+            .navbar-brand {
+                color: white !important;
+                font-weight: bold;
+                font-size: 1.4rem;
+            }
+            .nav-link {
+                color: rgba(255,255,255,0.8) !important;
+                transition: color 0.3s;
+            }
+            .nav-link:hover, .nav-link.active {
+                color: white !important;
+            }
+
+            /* Header Section */
+            .bio-header {
+                text-align: center;
+                padding: 60px 20px 40px;
+                background: linear-gradient(135deg, #1e3a8a, #3730a3);
+                margin-bottom: 50px;
+            }
+
+            .bio-header h1 {
+                font-size: 3rem;
+                font-weight: bold;
+                color: #f8fafc;
+                margin-bottom: 15px;
+            }
+
+            .bio-header p {
+                font-size: 1.2rem;
+                color: #cbd5e1;
+            }
+
+            /* Profile Image */
+            .profile-section {
+                text-align: center;
+                margin: -80px auto 40px;
+                position: relative;
+                z-index: 10;
+            }
+
+            .profile-img {
+                width: 180px;
+                height: 180px;
+                border-radius: 50%;
+                border: 6px solid #1e3a8a;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+                object-fit: cover;
+            }
+
+            /* Container */
+            .content-container {
+                max-width: 1000px;
+                margin: 0 auto;
+                padding: 0 20px 60px;
+            }
+
+            /* Card Sections */
+            .bio-card {
+                background: rgba(30, 41, 59, 0.95);
+                border-radius: 20px;
+                padding: 40px;
+                margin-bottom: 30px;
+                box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(148, 163, 184, 0.1);
+            }
+
+            .bio-card h2 {
+                color: #f1f5f9;
+                font-size: 2rem;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .bio-card h2 i {
+                color: #3b82f6;
+                font-size: 1.8rem;
+            }
+
+            .bio-card p {
+                line-height: 1.8;
+                color: #cbd5e1;
+                font-size: 1.05rem;
+            }
+
+            /* Lists */
+            .bio-list {
+                list-style: none;
+                padding: 0;
+            }
+
+            .bio-list li {
+                padding: 12px 20px;
+                margin: 10px 0;
+                background: rgba(51, 65, 85, 0.5);
+                border-radius: 10px;
+                border-left: 4px solid #3b82f6;
+                transition: transform 0.2s, background 0.2s;
+            }
+
+            .bio-list li:hover {
+                transform: translateX(5px);
+                background: rgba(59, 130, 246, 0.2);
+            }
+
+            /* Numbered List */
+            .numbered-list {
+                counter-reset: item;
+                list-style: none;
+                padding: 0;
+            }
+
+            .numbered-list li {
+                padding: 12px 20px 12px 50px;
+                margin: 10px 0;
+                background: rgba(51, 65, 85, 0.5);
+                border-radius: 10px;
+                position: relative;
+                transition: transform 0.2s, background 0.2s;
+            }
+
+            .numbered-list li:before {
+                counter-increment: item;
+                content: counter(item);
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: #3b82f6;
+                color: white;
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                font-size: 0.9rem;
+            }
+
+            .numbered-list li:hover {
+                transform: translateX(5px);
+                background: rgba(59, 130, 246, 0.2);
+            }
+
+            /* Contact Links */
+            .contact-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                margin-top: 25px;
+            }
+
+            .contact-item {
+                background: rgba(51, 65, 85, 0.5);
+                padding: 25px;
+                border-radius: 15px;
+                text-align: center;
+                transition: transform 0.3s, box-shadow 0.3s;
+                border: 1px solid rgba(148, 163, 184, 0.1);
+            }
+
+            .contact-item:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+                background: rgba(59, 130, 246, 0.1);
+            }
+
+            .contact-item i {
+                font-size: 2.5rem;
+                color: #3b82f6;
+                margin-bottom: 15px;
+            }
+
+            .contact-item h3 {
+                color: #f1f5f9;
+                font-size: 1.3rem;
+                margin-bottom: 10px;
+            }
+
+            .contact-item a {
+                display: inline-block;
+                padding: 10px 25px;
+                background: #3b82f6;
+                color: white;
+                text-decoration: none;
+                border-radius: 8px;
+                font-weight: 600;
+                transition: background 0.3s, transform 0.2s;
+            }
+
+            .contact-item a:hover {
+                background: #2563eb;
+                transform: scale(1.05);
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                .bio-header h1 {
+                    font-size: 2rem;
+                }
+                
+                .bio-card {
+                    padding: 25px;
+                }
+
+                .bio-card h2 {
+                    font-size: 1.5rem;
+                }
+
+                .contact-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="LandingPage.html">MyWebsite</a>
+                <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="LandingPage.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="Biography.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Portfolio.html">Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" onclick="logout()">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Header -->
+        <div class="bio-header">
+            <h1>My Biography</h1>
+            <p>Get to know more about who I am</p>
+        </div>
+
+        <!-- Profile Image -->
+        <div class="profile-section">
+            <img src="Profile.jpg" alt="Alberto Dacudag Jr." class="profile-img">
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-container">
+            
+            <!-- About Me Section -->
+            <div class="bio-card">
+                <h2><i class="fas fa-user"></i> About Me</h2>
+                <p>
+                    Hello! My name is <strong>Alberto Dacudag Jr.</strong> I'm an aspiring IT student passionate about web development and technology. 
+                    I enjoy learning new programming languages, building projects, and exploring innovative solutions to real-world problems.
+                </p>
+                <p style="margin-top: 15px; color: #94a3b8; font-style: italic;">
+                    This biography page showcases who I am, my interests, and what drives me forward in my journey as a developer.
+                </p>
+            </div>
+
+            <!-- Hobbies Section -->
+            <div class="bio-card">
+                <h2><i class="fas fa-heart"></i> My Hobbies</h2>
+                <ul class="bio-list">
+                    <li><i class="fas fa-gamepad" style="color: #3b82f6; margin-right: 10px;"></i> Playing Games</li>
+                    <li><i class="fas fa-utensils" style="color: #3b82f6; margin-right: 10px;"></i> Eating Foods</li>
+                    <li><i class="fas fa-code" style="color: #3b82f6; margin-right: 10px;"></i> Coding & Web Development</li>
+                    <li><i class="fas fa-laptop-code" style="color: #3b82f6; margin-right: 10px;"></i> Learning New Technologies</li>
+                </ul>
+            </div>
+
+            <!-- Daily Routine Section -->
+            <div class="bio-card">
+                <h2><i class="fas fa-calendar-day"></i> My Daily Routine</h2>
+                <ol class="numbered-list">
+                    <li>Wake up and start the day</li>
+                    <li>Attend classes and study</li>
+                    <li>Work on coding projects</li>
+                    <li>Play games and relax</li>
+                    <li>Rest and prepare for tomorrow</li>
+                </ol>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="bio-card">
+                <h2><i class="fas fa-envelope"></i> Contact Me</h2>
+                <div class="contact-grid">
+                    
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <h3>Github</h3>
+                        <a href="https://github.com/AlbertoDacudag112" target="_blank">Visit Profile</a>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <a href="mailto:a.dacudag.555050@umindanao.edu.ph">Send Email</a>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-briefcase"></i>
+                        <h3>Portfolio</h3>
+                        <a href="Portfolio.html">View Portfolio</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            // Check authentication
+            window.onload = function() {
+                const isLoggedIn = localStorage.getItem('isLoggedIn');
+                if (isLoggedIn !== 'true') {
+                    window.location.href = 'login.html';
+                }
+            };
+
+            function logout() {
+                if (confirm('Are you sure you want to logout?')) {
+                    localStorage.removeItem('isLoggedIn');
+                    localStorage.removeItem('currentUser');
+                    window.location.href = 'login.html';
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form - MyWebsite</title>
+    <link rel="stylesheet" href="RegistrationStyle.css">
+    <style>
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Registration Form</h1>
+    <h4>Fill out the form below to create an account</h4>
+
+    <form id="registrationForm" onsubmit="handleRegistration(event)">
+
+        <div id="alertBox"></div>
+
+        <!-- ================= Personal Information ================= -->
+        <fieldset>
+            <legend>Personal Information</legend>
+
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname" placeholder="Enter your First Name" required>
+
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname" placeholder="Enter your Last Name" required>
+
+            <label for="dbirth">Date of Birth</label>
+            <input type="date" id="dbirth" name="dbirth" required>
+
+            <p>Gender</p>
+            <label>
+                <input type="radio" name="gender" value="Male" required> Male
+            </label>
+            <label>
+                <input type="radio" name="gender" value="Female"> Female
+            </label>
+            <label>
+                <input type="radio" name="gender" value="Other"> Other
+            </label>
+
+            <p>Age</p>
+            <label for="age">Enter your age:</label>
+            <input type="number" id="age" name="age" min="13" max="120" required>
+        </fieldset>
+
+        <!-- ================= Account Information ================= -->
+        <fieldset>
+            <legend>Account Information</legend>
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" minlength="4" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password (min 6 characters)" minlength="6" required>
+            <span class="toggle-password" onclick="togglePassword('password')">👁</span>
+
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+            <span class="toggle-password" onclick="togglePassword('confirm_password')">👁</span>
+
+        </fieldset>
+
+        <!-- ================= Preferences ================= -->
+        <fieldset>
+            <legend>Preferences</legend>
+
+            <p>Interests</p>
+            <label>
+                <input type="checkbox" name="interests[]" value="Sports"> Sports
+            </label>
+            <label>
+                <input type="checkbox" name="interests[]" value="Music"> Music
+            </label>
+            <label>
+                <input type="checkbox" name="interests[]" value="Travel"> Travel
+            </label>
+            <label>
+                <input type="checkbox" name="interests[]" value="Reading"> Reading
+            </label>
+            <label>
+                <input type="checkbox" name="interests[]" value="Gaming"> Gaming
+            </label>
+
+            <input type="text" name="other_interest" placeholder="Other Interests">
+
+            <label for="favorite_color">Favorite Color</label>
+            <input type="color" id="favorite_color" name="favorite_color" value="#4a90e2">
+        </fieldset>
+
+        <!-- ================= Contact Information ================= -->
+        <fieldset>
+            <legend>Contact Information</legend>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="example@email.com" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="09123456789" required>
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" placeholder="Enter your address" required>
+
+            <label for="country">Country</label>
+            <select id="country" name="country" required>
+                <option value="">Select your country</option>
+                <option value="usa">United States</option>
+                <option value="canada">Canada</option>
+                <option value="uk">United Kingdom</option>
+                <option value="australia">Australia</option>
+                <option value="philippines">Philippines</option>
+                <option value="other">Other</option>
+            </select>
+        </fieldset>
+
+        <!-- ================= Feedback ================= -->
+        <fieldset>
+            <legend>Feedback (Optional)</legend>
+
+            <label for="comments">Comments</label>
+            <textarea id="comments" name="comments" rows="4" placeholder="Enter your comments here..."></textarea>
+        </fieldset>
+
+        <!-- ================= Submit ================= -->
+        <input type="submit" value="Register">
+
+        <div style="text-align: center; margin-top: 15px;">
+            <small>Already have an account? <a href="login.html" style="color: #4a90e2; font-weight: 600;">Login here</a></small>
+        </div>
+
+    </form>
+
+    <script>
+function togglePassword(fieldId) {
+    const field = document.getElementById(fieldId);
+    const icon = field.nextElementSibling;
+    
+    const isVisible = field.type === "text";
+    field.type = isVisible ? "password" : "text";
+    icon.classList.toggle("visible", !isVisible);
+}
+
+function handleRegistration(event) {
+    event.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm_password').value;
+    const email = document.getElementById('email').value;
+    
+    // Validate passwords match
+    if (password !== confirmPassword) {
+        showAlert('Passwords do not match!', 'danger');
+        return;
+    }
+
+    // Get existing users or initialize empty array
+    let users = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+
+    // Check if username already exists
+    if (users.some(user => user.username === username)) {
+        showAlert('Username already exists! Please choose another.', 'danger');
+        return;
+    }
+
+    // Check if email already exists
+    if (users.some(user => user.email === email)) {
+        showAlert('Email already registered! Please use another email or login.', 'danger');
+        return;
+    }
+
+    // Get all form data
+    const formData = new FormData(event.target);
+    const userData = {
+        firstName: formData.get('fname'),
+        lastName: formData.get('lname'),
+        dateOfBirth: formData.get('dbirth'),
+        gender: formData.get('gender'),
+        age: formData.get('age'),
+        username: username,
+        password: password,
+        email: email,
+        phone: formData.get('phone'),
+        address: formData.get('address'),
+        country: formData.get('country'),
+        interests: formData.getAll('interests[]'),
+        otherInterest: formData.get('other_interest'),
+        favoriteColor: formData.get('favorite_color'),
+        comments: formData.get('comments'),
+        registrationDate: new Date().toISOString()
+    };
+
+    // Add user to array
+    users.push(userData);
+
+    // Save to localStorage
+    localStorage.setItem('registeredUsers', JSON.stringify(users));
+
+    // Set registration success flag
+    sessionStorage.setItem('justRegistered', 'true');
+
+    // Show success message
+    showAlert('Registration successful! Redirecting to login...', 'success');
+
+    // Redirect to login page after 2 seconds
+    setTimeout(() => {
+        window.location.href = 'login.html';
+    }, 2000);
+}
+
+function showAlert(message, type) {
+    const alertBox = document.getElementById('alertBox');
+    alertBox.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+    
+    // Scroll to top to show alert
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

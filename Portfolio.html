@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - MyWebsite</title>
+
+    <link rel="stylesheet" href="PortfolioStyle.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        .navbar {
+            background-color: #111;
+            padding: 15px 0;
+        }
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+        }
+        .nav-link:hover {
+            color: white !important;
+        }
+        body {
+            padding-top: 70px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="LandingPage.html">MyWebsite</a>
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="LandingPage.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Biography.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="Portfolio.html">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Intro -->
+    <header>
+        <section id="introduction">             
+            <h1>Alberto Dacudag Jr.</h1>
+            <p>Student | BSIT | Future Web Developer</p>
+        </section>
+    </header>
+
+    <!-- About Me Section -->
+    <section id="about-me">
+        <h1>About Me</h1>
+        <p>
+            I'm a BSIT College Student currently studying the fundamentals of Programming.
+            <br>
+            My interest is all about playing games and learning programming languages taught in school.
+        </p>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="Skills">
+        <h1>Skills</h1>
+
+        <div class="card-container">
+
+            <div class="card">
+                <i class="fab fa-html5"></i>
+                <h3>HTML</h3>
+                <p>
+                    HyperText Markup Language (HTML) is the standard markup language for creating web pages.
+                </p>
+            </div>
+
+            <div class="card">
+                <i class="fab fa-css3-alt"></i>
+                <h3>CSS</h3>
+                <p>
+                    Cascading Style Sheets (CSS) is used to describe the presentation of web pages.
+                </p>
+            </div>
+
+            <div class="card">
+                <i class="fab fa-js-square"></i>
+                <h3>JavaScript</h3>
+                <p>
+                    JavaScript is a versatile programming language for web development and interactivity.
+                </p>
+            </div>
+
+            <div class="card">
+                <i class="fab fa-java"></i>
+                <h3>Java</h3>
+                <p>
+                    Java is a high-level, object-oriented programming language.
+                </p>
+            </div>
+
+            <div class="card">
+                <i class="fab fa-python"></i>
+                <h3>Python</h3>
+                <p>
+                    Python is a high-level programming language known for readability.
+                </p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-code"></i>
+                <h3>C++</h3>
+                <p>
+                    C++ is a general-purpose programming language created by Bjarne Stroustrup.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects / Achievements Section -->
+    <section class="Achievements">
+        <h2>Projects and Achievements</h2>
+
+        <div class="card-container">
+
+            <div class="card">
+                <i class="fas fa-user"></i>
+                <h3>Biography Webpage</h3>
+                <p>A personal webpage featuring my background, interests, and contact information.</p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-briefcase"></i>
+                <h3>Portfolio Website</h3>
+                <p>A comprehensive portfolio showcasing my skills, projects, and achievements.</p>
+            </div>
+            
+            <div class="card">
+                <i class="fas fa-globe"></i>
+                <h3>Multi-Page Website</h3>
+                <p>A fully functional website with authentication, navigation, and responsive design.</p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-calculator"></i>
+                <h3>Simple Calculator</h3>
+                <p>A basic calculator application that performs arithmetic operations.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section id="contact-information">
+        <h1>Contact Information</h1>
+        <p><strong>Email:</strong> a.dacudag.555050@umindanao.edu.ph</p>
+        <p><strong>Phone:</strong> +63 9123456789</p>
+        <p><strong>Address:</strong> Davao City, Philippines</p>
+        <p><strong>Github:</strong> <a href="https://github.com/AlbertoDacudag112" target="_blank">github.com/AlbertoDacudag112</a></p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Alberto Dacudag Jr. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Check authentication
+        window.onload = function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn !== 'true') {
+                window.location.href = 'login.html';
+            }
+        };
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('currentUser');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+
+</body>
+</html>
